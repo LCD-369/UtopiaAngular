@@ -1,0 +1,63 @@
+<!-- Ratio Button -->
+  <form>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+      <label class="form-check-label" for="inlineRadio1">Round trip</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+      <label class="form-check-label" for="inlineRadio2">One way</label>
+    </div>
+<!-- Ratio Button -->
+<!-- From/To -->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="From" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-sm btn-outline-primary" (click)="openFrom(contentFrom)"><fa-icon [icon]="faSearch"></fa-icon></button>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="To" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-sm btn-outline-primary" (click)="openTo(contentTo)"><fa-icon [icon]="faSearch"></fa-icon></button>
+        </div>
+      </div>
+<!-- From/To -->
+<!-- Datepicker -->
+      <div class="input-group mb-3">
+        <app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
+      </div>
+      <div class="input-group mb-3">
+        <app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
+      </div>
+<!-- Datepicker -->
+<!-- Num Passengers -->
+<select class="custom-select mt-2">
+  <option selected>Number of passengers</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+</select>
+ <button class="btn btn-block btn-outline-primary mt-3" type="submit">Search</button>
+</form>
+<!-- Modals -->
+<ng-template #contentFrom  let-d="dismiss">
+  <div class="modal-header">
+    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
+  </div>
+  <div class="p-4">
+    <app-airportlookupmodal></app-airportlookupmodal>
+  </div>
+</ng-template>
+<ng-template #contentTo  let-d="dismiss">
+  <div class="modal-header">
+    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
+  </div>
+  <div class="p-4">
+    <app-airportlookupmodal></app-airportlookupmodal>
+  </div>
+</ng-template>
+<!-- Modals -->
