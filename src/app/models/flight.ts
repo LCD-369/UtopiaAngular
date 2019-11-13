@@ -1,7 +1,9 @@
-export interface Flight {
+import { Airport } from './Airport';
+
+export class Flight {
   id: number;
-  departureAirport: any;
-  destination: any;
+  departureAirport: Airport;
+  destination: Airport;
   departureDate: Date;
   arrivalDate: Date;
   flightNumber: number;

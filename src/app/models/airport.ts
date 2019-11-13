@@ -1,4 +1,4 @@
-export interface Airport {
+export class Airport {
   code: number;
   name: string;
   city: string;

@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Flight } from './Flight';
+import { User } from './User';
 
-@Injectable()
 export class Ticket {
   ticketId: number;
-  flight: any;
+  flight: Flight;
   seatRow: number;
   seat: string;
   seatClass: string;
   price: number;
-  reserver: any;
+  reserver: User;
   reservationTimeout: Date;
   bookingId: string;
 }
