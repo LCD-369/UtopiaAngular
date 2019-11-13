@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Airport} from '../models/Airport';
 import { AirportService } from '../services/airport.service';
 
 @Component({
-  selector: 'app-airportlookupmodal',
-  templateUrl: './airportlookupmodal.component.html',
-  styleUrls: ['./airportlookupmodal.component.css']
+  selector: 'app-airportlookupfrom',
+  templateUrl: './airportlookupfrom.component.html',
+  styleUrls: ['./airportlookupfrom.component.css']
 })
-export class AirportlookupmodalComponent implements OnInit {
-  selectedFromAirport;
+export class AirportlookupfromComponent implements OnInit {
+  @Output() selectedFromAirport: Airport;
   airports: Array<Airport>;
   temp: Array<Airport>;
   searchAirport: Airport = {
@@ -25,7 +25,6 @@ export class AirportlookupmodalComponent implements OnInit {
   states;
   regionSelect;
   stateSelect;
-
 
   constructor(private airportService: AirportService) {
     this.airports = [];
@@ -70,6 +69,7 @@ export class AirportlookupmodalComponent implements OnInit {
 
   selectAirport(airport: Airport) {
     this.selectedFromAirport = airport;
+
   }
 
-}
+  }

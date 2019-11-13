@@ -1,9 +1,9 @@
 <div class="container p-5 shadow bg-white" style="margin-top: -100px; z-index: 7; position: relative;">
 <ngb-tabset [justify]="currentJustify" type="tabs">
   <ngb-tab>
+    <!-- Booking -->
     <ng-template ngbTabTitle><b>Book Flight</b></ng-template>
     <ng-template ngbTabContent>
-      <!-- -->
       <div class="p-5">
       <ngb-tabset [justify]="currentJustify" type="pills">
         <ngb-tab>
@@ -30,15 +30,23 @@
         </ngb-tab>
       </ngb-tabset>
       </div>
-    <!-- -->
-
     </ng-template>
+    <!-- Booking -->
   </ngb-tab>
+  <!-- Search Flights -->
   <ngb-tab>
-    <ng-template ngbTabTitle><b>Search Flights</b></ng-template>
+    <ng-template ngbTabTitle><b>Search Flight</b></ng-template>
     <ng-template ngbTabContent>
+      <div class="container m-auto">
+        <div class="row mt-4" style="place-content: end center">
+        <div class="col-sm-7">
+          <app-searchflightform></app-searchflightform>
+        </div>
+        </div>
+      </div>
     </ng-template>
   </ngb-tab>
+  <!-- Search Flights -->
   <ngb-tab>
     <ng-template ngbTabTitle><b>User Login</b></ng-template>
     <ng-template ngbTabContent>

@@ -7,6 +7,7 @@ import { Ticket } from '../models/Ticket';
 
 @Injectable()
 export class TicketService {
+postUrl = 'http://localhost:8082/search/ticket/';
 
   constructor(private http: HttpClient) { }
 

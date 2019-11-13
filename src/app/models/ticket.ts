@@ -1,11 +1,14 @@
-export interface Ticket {
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class Ticket {
   ticketId: number;
-  flight: Flight;
+  flight: any;
   seatRow: number;
   seat: string;
   seatClass: string;
   price: number;
-  reserver: User;
+  reserver: any;
   reservationTimeout: Date;
   bookingId: string;
 }

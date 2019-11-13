@@ -7,7 +7,7 @@ import { Airport } from '../models/Airport';
 
 @Injectable()
 export class AirportService {
-postUrl = 'http://localhost:8082/search/airport/';
+postUrl = 'http://localhost:8082/book/airport/';
 
   constructor(private http: HttpClient) { }
 

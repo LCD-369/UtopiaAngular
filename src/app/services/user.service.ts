@@ -7,7 +7,7 @@ import { User } from '../models/User';
 
 @Injectable()
 export class UserService {
-
+postUrl = 'http://localhost:8082/search/user/';
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {

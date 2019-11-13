@@ -1,35 +1,33 @@
+<form>
 <!-- Ratio Button -->
-  <form>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-      <label class="form-check-label" for="inlineRadio1">Round trip</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-      <label class="form-check-label" for="inlineRadio2">One way</label>
-    </div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">Round trip</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">One way</label>
+</div>
 <!-- Ratio Button -->
 <!-- From/To -->
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="From" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-sm btn-outline-primary" (click)="openFrom(contentFrom)"><fa-icon [icon]="faSearch"></fa-icon></button>
-        </div>
+<h5 class="lead">From</h5>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="{{ selectedFromAirport.name }}" aria-label="from airport" aria-describedby="button-addon1">
+      <div class="input-group-append">
+        <button class="btn btn-sm btn-outline-primary" (click)="openFrom(contentFrom)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="To" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-sm btn-outline-primary" (click)="openTo(contentTo)"><fa-icon [icon]="faSearch"></fa-icon></button>
-        </div>
+  </div>
+<h5 class="lead">To</h5>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="{{ selectedToAirport.name }}" aria-label="to airport" aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-sm btn-outline-primary" (click)="openTo(contentTo)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
+  </div>
 <!-- From/To -->
 <!-- Datepicker -->
-      <div class="input-group mb-3">
-        <app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
-      </div>
-      <div class="input-group mb-3">
-        <app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
-      </div>
+<div class="input-group mb-3"><app-ngbd-datepicker-popup></app-ngbd-datepicker-popup></div>
+<div class="input-group mb-3"><app-ngbd-datepicker-popup></app-ngbd-datepicker-popup></div>
 <!-- Datepicker -->
 <!-- Num Passengers -->
 <select class="custom-select mt-2">
@@ -41,23 +39,128 @@
   <option value="5">5</option>
   <option value="6">6</option>
 </select>
- <button class="btn btn-block btn-outline-primary mt-3" type="submit">Search</button>
+  <button class="btn btn-block btn-outline-primary mt-3" type="submit">Search</button>
+
+<!-- Modal1 -->
+<ng-template #contentFrom  let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
+  </div>
+  <div class="p-4">
+    <div class="container">
+    <h3>Airport lookup</h3>
+    <h5>Please tell us where the airport is located</h5>
+    <div class="row">
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownOne" ngbDropdownToggle>Country / Region</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownOne">
+            <div *ngFor="let region of regions">
+              <button (click)="selectRegion(region)" ngbDropdownItem>{{ region }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>{{ regionSelect }}</div>
+    <hr />
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownTwo" ngbDropdownToggle>State</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownTwo">
+              <div *ngFor="let state of states">
+                <button (click)="selectState(state)" ngbDropdownItem>{{ state }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>{{ stateSelect }}</div>
+    <hr />
+    <div class="table-responsive">
+    <table *ngIf="showTable" class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">City</th>
+          <th scope="col">Airport</th>
+          <th scope="col">Airport code</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let airport of temp">
+        <tr>
+          <td>{{ airport.city }}</td>
+          <td>{{ airport.name }}</td>
+          <td>{{ airport.code }}</td>
+          <td><button (click)="selectFromAirport(airport)" class="btn btn-raised btn-info m-1" type="button">Select</button></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal1 -->
+<!-- Modal2 -->
+<ng-template #contentTo let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
+  </div>
+  <div class="p-4">
+    <div class="container">
+    <h3>Airport lookup</h3>
+    <h5>Please tell us where the airport is located</h5>
+    <div class="row">
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownthree" ngbDropdownToggle>Country / Region</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownOne">
+            <div *ngFor="let region of regions">
+              <button (click)="selectRegion(region)" ngbDropdownItem>{{ region }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>{{ regionSelect }}</div>
+    <hr />
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownfour" ngbDropdownToggle>State</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownTwo">
+              <div *ngFor="let state of states">
+                <button (click)="selectState(state)" ngbDropdownItem>{{ state }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>{{ stateSelect }}</div>
+    <hr />
+    <div class="table-responsive">
+    <table *ngIf="showTable" class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">City</th>
+          <th scope="col">Airport</th>
+          <th scope="col">Airport code</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let airport of temp">
+        <tr>
+          <td>{{ airport.city }}</td>
+          <td>{{ airport.name }}</td>
+          <td>{{ airport.code }}</td>
+          <td><button (click)="selectToAirport(airport)" class="btn btn-raised btn-info m-1" type="button">Select</button></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal2 -->
 </form>
-<!-- Modals -->
-<ng-template #contentFrom  let-d="dismiss">
-  <div class="modal-header">
-    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
-  </div>
-  <div class="p-4">
-    <app-airportlookupmodal></app-airportlookupmodal>
-  </div>
-</ng-template>
-<ng-template #contentTo  let-d="dismiss">
-  <div class="modal-header">
-    <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
-  </div>
-  <div class="p-4">
-    <app-airportlookupmodal></app-airportlookupmodal>
-  </div>
-</ng-template>
-<!-- Modals -->

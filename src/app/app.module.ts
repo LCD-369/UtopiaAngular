@@ -4,7 +4,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 // import { ReactiveFormsModule } from '@angular/Forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,6 +21,9 @@ import { FlightService } from './services/flight.service';
 import { TicketService } from './services/ticket.service';
 import { AirportService } from './services/airport.service';
 import { UserService } from './services/user.service';
+import { AirportlookupfromComponent } from './airportlookupfrom/airportlookupfrom.component';
+import { AirportlookuptoComponent } from './airportlookupto/airportlookupto.component';
+import { SearchflightformComponent } from './searchflightform/searchflightform.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,10 @@ import { UserService } from './services/user.service';
     BookingformComponent,
     SearchformComponent,
     NgbdDatepickerPopupComponent,
-    AirportlookupmodalComponent
+    AirportlookupmodalComponent,
+    AirportlookupfromComponent,
+    AirportlookuptoComponent,
+    SearchflightformComponent
   ],
   imports: [
     BrowserModule,
