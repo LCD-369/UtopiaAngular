@@ -1,13 +1,13 @@
-<form>
+<form [formGroup]="searchForm" (ngSubmit)="searchFlightTickets()">
   <div class="form-group">
-    <label for="formGroupExampleInput2"><b>Search by departure airport</b></label>
+    <label for="formGroupExampleInput2"><h4><b>Search by departure airport</b></h4></label>
     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Departure Airport">
-    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-primary m-1" type="button">Search</button>
+    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-block btn-primary m-1" type="button">Search</button>
   </div>
   <div class="form-group">
-    <label for="formGroupExampleInput3"><b>Search by airport Destination</b></label>
+    <label for="formGroupExampleInput3"><h4><b>Search by airport destination</b></h4></label>
     <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Destination">
-    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-primary m-1" type="button">Search</button>
+    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-block btn-primary m-1" type="button">Search</button>
   </div>
 </form>
 <nav class="navbar navbar-expand-md navbar-light bg-light">

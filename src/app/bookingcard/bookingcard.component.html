@@ -1,11 +1,12 @@
 <div class="container p-5 shadow bg-white" style="margin-top: -100px; z-index: 7; position: relative;">
 <ngb-tabset [justify]="currentJustify" type="tabs">
+  <!-- Booking -->
   <ngb-tab>
-    <!-- Booking -->
     <ng-template ngbTabTitle><b>Book Flight</b></ng-template>
     <ng-template ngbTabContent>
       <div class="p-5">
       <ngb-tabset [justify]="currentJustify" type="pills">
+        <!-- Book flight tab -->
         <ngb-tab>
           <ng-template ngbTabTitle><b>Flight</b></ng-template>
           <ng-template ngbTabContent>
@@ -18,21 +19,26 @@
             </div>
           </ng-template>
         </ngb-tab>
+        <!-- Book flight tab -->
+        <!-- Vacation tab -->
         <ngb-tab>
           <ng-template ngbTabTitle><b>Vacation packages</b></ng-template>
           <ng-template ngbTabContent>
           </ng-template>
         </ngb-tab>
+        <!-- Vacation tab -->
+        <!-- Hotel tab -->
         <ngb-tab>
           <ng-template ngbTabTitle><b>Hotel</b></ng-template>
           <ng-template ngbTabContent>
           </ng-template>
         </ngb-tab>
+        <!-- Hotel tab -->
       </ngb-tabset>
       </div>
     </ng-template>
-    <!-- Booking -->
   </ngb-tab>
+  <!-- Booking -->
   <!-- Search Flights -->
   <ngb-tab>
     <ng-template ngbTabTitle><b>Search Flight</b></ng-template>
@@ -47,6 +53,7 @@
     </ng-template>
   </ngb-tab>
   <!-- Search Flights -->
+  <!-- User Login -->
   <ngb-tab>
     <ng-template ngbTabTitle><b>User Login</b></ng-template>
     <ng-template ngbTabContent>
@@ -59,6 +66,7 @@
       </div>
     </ng-template>
   </ngb-tab>
+  <!-- User Login -->
 </ngb-tabset>
 </div>
 <br />

@@ -7,7 +7,6 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./ngbd-datepicker-popup.component.css']
 })
 export class NgbdDatepickerPopupComponent implements OnInit {
-  model;
   faCalendarAlt = faCalendarAlt;
   constructor() { }
 

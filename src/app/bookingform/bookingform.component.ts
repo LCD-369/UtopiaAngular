@@ -3,6 +3,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airport} from '../models/Airport';
 import { AirportService } from '../services/airport.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-bookingform',
@@ -11,7 +13,9 @@ import { AirportService } from '../services/airport.service';
    providers: [NgbModalConfig, NgbModal]
 })
 export class BookingformComponent implements OnInit {
+  bookingForm: FormGroup;
   faSearch = faSearch;
+  faCalendarAlt = faCalendarAlt;
   selectedFromAirport: Airport;
   selectedToAirport: Airport;
   searchAirport: Airport;
@@ -31,23 +35,15 @@ export class BookingformComponent implements OnInit {
     config.centered = true;
   }
 
-  openFrom(contentFrom) {
-    this.modalService.open(contentFrom);
-  }
-  
-  openTo(contentTo) {
-    this.modalService2.open(contentTo);
-  }
-
-  closeFrom() {
-    this.modalService.dismissAll();
-  }
-
-  closeTo() {
-    this.modalService2.dismissAll();
-  }
-
   ngOnInit() {
+    this.bookingForm = new FormGroup(
+    {
+      departureAP: new FormControl(null),
+      arrivalAP: new FormControl(null),
+      departureAPDate: new FormControl(null),
+      arrivalAPDate: new FormControl(null)
+    }
+    );
     this.airports = [];
     this.temp = [];
     this.regionField = false;
@@ -81,6 +77,22 @@ export class BookingformComponent implements OnInit {
       });
   }
 
+  openFrom(contentFrom) {
+    this.modalService.open(contentFrom);
+  }
+
+  openTo(contentTo) {
+    this.modalService2.open(contentTo);
+  }
+
+  closeFrom() {
+    this.modalService.dismissAll();
+  }
+
+  closeTo() {
+    this.modalService2.dismissAll();
+  }
+
   showAirportTable() {
     if(this.regionField == true && this.stateField == true) {
         this.airports.forEach((current) => {
@@ -108,7 +120,6 @@ export class BookingformComponent implements OnInit {
 
   selectFromAirport(airport: Airport) {
     this.selectedFromAirport = airport;
-
     this.stateField = false;
     this.regionField = false;
     this.searchAirport = {
@@ -126,6 +137,7 @@ export class BookingformComponent implements OnInit {
 
   selectToAirport(airport: Airport) {
     this.selectedToAirport = airport;
+
     this.stateField = false;
     this.regionField = false;
     this.searchAirport = {
@@ -141,4 +153,7 @@ export class BookingformComponent implements OnInit {
     this.closeTo();
   }
 
+  searchFlightTickets() {
+    console.log(this.bookingForm.value);
+  }
 }
