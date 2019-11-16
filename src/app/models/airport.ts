@@ -4,4 +4,6 @@ export class Airport {
   city: string;
   state: string;
   country: string;
+
+  constructor(){}
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+// import { FormGroup, FormControl } from '@angular/forms';
 import { Flight } from '../models/Flight';
 import { Airport } from '../models/Airport';
 import { FlightService } from '../services/flight.service';
@@ -10,12 +10,12 @@ import { FlightService } from '../services/flight.service';
   styleUrls: ['./searchflightform.component.css']
 })
 export class SearchflightformComponent implements OnInit {
-  searchForm = new FormGroup({
-  departureAP: new FormControl(''),
-  arrivalAP: new FormControl(''),
-  departureAPDate: new FormControl(''),
-  arrivalAPDate: new FormControl(''),
-  });
+  // searchForm = new FormGroup({
+  // departureAP: new FormControl(''),
+  // arrivalAP: new FormControl(''),
+  // departureAPDate: new FormControl(''),
+  // arrivalAPDate: new FormControl(''),
+  // });
   collapsed = true;
   flights: Array<Flight>;
   showTable: boolean;

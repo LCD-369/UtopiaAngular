@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+// import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-logincard',
@@ -7,11 +7,11 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./logincard.component.css']
 })
 export class LogincardComponent implements OnInit {
-  loginForm = new FormGroup({
-  userEmail: new FormControl(''),
-  userPassword: new FormControl('')
-
-  });
+  // loginForm = new FormGroup({
+  // userEmail: new FormControl(''),
+  // userPassword: new FormControl('')
+  //
+  // });
   constructor() { }
 
   ngOnInit() {

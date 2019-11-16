@@ -1,33 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Airport} from '../models/Airport';
-import { AirportService } from '../services/airport.service';
-import { FormGroup, FormControl } from '@angular/forms';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { FormGroup, FormControl } from '@angular/forms';
+import { NgbModalConfig, NgbModal, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Airport } from '../models/Airport';
+import { Booking } from '../models/Booking';
+import { AirportService } from '../services/airport.service';
+import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
+
 
 @Component({
   selector: 'app-bookingform',
   templateUrl: './bookingform.component.html',
   styleUrls: ['./bookingform.component.css'],
-   providers: [NgbModalConfig, NgbModal]
+   providers: [NgbModalConfig, NgbModal ]
 })
 export class BookingformComponent implements OnInit {
-  bookingForm: FormGroup;
+  // @ViewChild('dp', {static: true})
+  // departureDatePicker: NgbdDatepickerPopupComponent;
+  //
+  // @ViewChild('arrivalDate', {static: true})
+  // arrivalDatePicker: NgbdDatepickerPopupComponent;
+
   faSearch = faSearch;
   faCalendarAlt = faCalendarAlt;
+  bookingForm: Booking;
   selectedFromAirport: Airport;
   selectedToAirport: Airport;
-  searchAirport: Airport;
   airports: Array<Airport>;
   temp: Array<Airport>;
-  regionField: boolean;
-  stateField: boolean;
   showTable: boolean;
+  searchAirportBy;
   regions;
   states;
   regionSelect;
   stateSelect;
+  date1;
+  date2;
+
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService) {
     config.backdrop = 'static';
@@ -36,68 +46,32 @@ export class BookingformComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookingForm = new FormGroup(
-    {
-      departureAP: new FormControl(null),
-      arrivalAP: new FormControl(null),
-      departureAPDate: new FormControl(null),
-      arrivalAPDate: new FormControl(null)
-    }
-    );
+    this.bookingForm = new Booking();
     this.airports = [];
     this.temp = [];
-    this.regionField = false;
-    this.stateField = false;
     this.showTable = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
     this.states = ['CA', 'CO', 'MA', 'NY', 'TX', 'VA'];
-    this.searchAirport = {
-      code: null,
-      name: null,
-      city: null,
+    this.searchAirportBy = {
       state: null,
-      country: null,
+      country: null
     };
-    this.selectedFromAirport = {
-      code: null,
-      name: null,
-      city: null,
-      state: null,
-      country: null,
-    };
-    this.selectedToAirport = {
-      code: null,
-      name: null,
-      city: null,
-      state: null,
-      country: null,
-    };
-    this.airportService.getAirport().subscribe(airports => {
-      this.airports = airports;
-      });
+    this.airportService.getAirport().subscribe(airports => {this.airports = airports;});
   }
 
-  openFrom(contentFrom) {
-    this.modalService.open(contentFrom);
-  }
+  openFrom(contentFrom) {this.modalService.open(contentFrom);}
 
-  openTo(contentTo) {
-    this.modalService2.open(contentTo);
-  }
+  openTo(contentTo) {this.modalService2.open(contentTo);}
 
-  closeFrom() {
-    this.modalService.dismissAll();
-  }
+  closeFrom() {this.modalService.dismissAll();}
 
-  closeTo() {
-    this.modalService2.dismissAll();
-  }
+  closeTo() {this.modalService2.dismissAll();}
 
   showAirportTable() {
-    if(this.regionField == true && this.stateField == true) {
+    if(this.regionSelect !== null && this.stateSelect !== null) {
         this.airports.forEach((current) => {
-          if(this.searchAirport.country === current.country &&
-          this.searchAirport.state === current.state) {
+          if(this.searchAirportBy.country === current.country &&
+          this.searchAirportBy.state === current.state) {
             this.temp.push(current);
           }
         });
@@ -106,54 +80,54 @@ export class BookingformComponent implements OnInit {
   }
 
   selectRegion(region: string) {
-    this.regionField = true;
-    this.searchAirport.country = region;
+    this.searchAirportBy.country = region;
     this.regionSelect = region;
   }
 
   selectState(state: string) {
-    this.stateField = true;
-    this.searchAirport.state = state;
+    this.searchAirportBy.state = state;
     this.stateSelect = state;
     this.showAirportTable();
   }
 
   selectFromAirport(airport: Airport) {
-    this.selectedFromAirport = airport;
-    this.stateField = false;
-    this.regionField = false;
-    this.searchAirport = {
-      code: null,
-      name: null,
-      city: null,
+    this.bookingForm.departureAP = airport.name;
+    this.searchAirportBy = {
       state: null,
       country: null,
     };
-    this.stateSelect = '';
-    this.regionSelect = '';
+    this.stateSelect = null;
+    this.regionSelect = null;
     this.temp = [];
     this.closeFrom();
   }
 
   selectToAirport(airport: Airport) {
-    this.selectedToAirport = airport;
-
-    this.stateField = false;
-    this.regionField = false;
-    this.searchAirport = {
-      code: null,
-      name: null,
-      city: null,
+    this.bookingForm.arrivalAP = airport.name;
+    this.searchAirportBy = {
       state: null,
       country: null,
     };
-    this.stateSelect = '';
-    this.regionSelect = '';
+    this.stateSelect = null;
+    this.regionSelect = null;
     this.temp = [];
     this.closeTo();
   }
 
-  searchFlightTickets() {
-    console.log(this.bookingForm.value);
+  onSubmit() {
+    // console.log(this.date1);
+    // console.log(this.departureDatePicker.model);
+    // console.log(this.departureDate);'
+
+    console.log(this.date1);
+    // this.bookingForm.departureAPDate = this.date1;
+    // this.bookingForm.arrivalAPDate = this.date2;
+    // console.log(this.arrivalDatePicker.model);
+    console.log(this.bookingForm);
   }
+
+  assignValue(newValue) {
+    console.log(newValue);
+  }
+
 }
