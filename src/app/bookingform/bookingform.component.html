@@ -1,5 +1,5 @@
 <hr />
-<form #bookingForm="ngForm">
+<form #bookingForm="ngForm" (ngSubmit)="onSubmit()">
 <!-- Ratio Button -->
 <div class="form-check form-check-inline">
   <input class="form-check-input" type="radio"  value="option1">
@@ -10,52 +10,39 @@
   <label class="form-check-label" for="inlineRadio2">One way</label>
 </div>
 <!-- Ratio Button -->
+
 <!-- From/To -->
 <h5><b>Departure airport</b></h5>
   <div class="input-group mb-3">
-    <input class="form-control" type="text" name="departureAP" [(ngModel)]="bookingForm.departureAP"  aria-label="from airport">
+    <input class="form-control" name="departureAP" [(ngModel)]="bookingForm.departureAP" [placeholder]="getPlaceholder1()" aria-label="from airport">
       <div class="input-group-append">
         <button class="btn btn-sm btn-outline-primary" (click)="openFrom(contentFrom)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
   </div>
-  <!-- Datepicker -->
-  <app-ngbd-datepicker-popup (valuePassed)='assignValue($event)'></app-ngbd-datepicker-popup>
 
-
-  <!-- <div class="form-group">
-    <div class="input-group mb-3">
-      <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date1" name="departureAPDate"  ngbDatepicker #d="ngbDatepicker">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
-        </div>
-    </div>
-  </div> -->
-
-  <!-- Datepicker -->
 <h5><b>Arrival airport</b></h5>
   <div class="input-group mb-3">
-    <input class="form-control" type="text" name="arrivalAP" [(ngModel)]="bookingForm.arrivalAP"  aria-label="to airport">
+    <input class="form-control" type="text" name="arrivalAP" [(ngModel)]="bookingForm.arrivalAP" [placeholder]="getPlaceholder2()" aria-label="to airport">
       <div class="input-group-append">
         <button class="btn btn-sm btn-outline-primary" (click)="openTo(contentTo)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
   </div>
   <!-- Datepicker -->
-
   <!-- <app-ngbd-datepicker-popup #arrivalDate></app-ngbd-datepicker-popup> -->
-
-  <!-- <div class="form-group">
+<!-- <form class="form-inline"> -->
+  <div class="form-group">
     <div class="input-group mb-3">
-      <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date2" name="arrivalAPDate" ngbDatepicker #t="ngbDatepicker">
+      <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="model" ngbDatepicker #t="ngbDatepicker">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="t.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
         </div>
     </div>
-  </div> -->
-
-
-
-
+  </div>
+<!-- </form> -->
+<pre>Model: {{ model | json }}</pre>
+<app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
   <!-- Datepicker -->
+
 <!-- From/To -->
 <!-- Num Passengers -->
 <select class="custom-select mt-2">
@@ -67,7 +54,9 @@
   <option value="5">5</option>
   <option value="6">6</option>
 </select>
-  <button class="btn btn-block btn-outline-primary mt-3" type="button" (click)="onSubmit()">Search</button>
+  <button class="btn btn-block btn-outline-primary mt-3" type="submit">Search</button>
+</form>
+<hr />
 <!-- Modal1 -->
 <ng-template #contentFrom  let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -190,5 +179,3 @@
   </div>
 </ng-template>
 <!-- Modal2 -->
-</form>
-<hr />

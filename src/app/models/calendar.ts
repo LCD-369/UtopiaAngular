@@ -1,5 +1,6 @@
-import { NgbDate, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
-export class Calendar {
-
+export class FormCalendar {
+  year: number;
+  month: number;
+  day: number;
 }
