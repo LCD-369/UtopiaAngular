@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 // import { FormGroup, FormControl } from '@angular/forms';
-import { NgbModalConfig, NgbModal, NgbDate,  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airport } from '../models/Airport';
 import { Booking } from '../models/Booking';
 import { AirportService } from '../services/airport.service';
-// import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
+import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
 
 
 @Component({
@@ -16,11 +16,12 @@ import { AirportService } from '../services/airport.service';
   providers: [NgbModalConfig, NgbModal]
 })
 export class BookingformComponent implements OnInit {
-  // @ViewChild('dp', {static: true})
-  // departureDatePicker: NgbdDatepickerPopupComponent;
+  @ViewChild('departureDate', {static: true})
+  departureDatePicker: NgbdDatepickerPopupComponent;
 
-  // @ViewChild('arrivalDate', {static: true})
-  // arrivalDatePicker: NgbdDatepickerPopupComponent;
+  @ViewChild('arrivalDate', {static: true})
+  arrivalDatePicker: NgbdDatepickerPopupComponent;
+
   placeholderMessage = "Please select the search icon";
   faSearch = faSearch;
   faCalendarAlt = faCalendarAlt;
@@ -36,8 +37,6 @@ export class BookingformComponent implements OnInit {
   regionSelect: any;
   stateSelect: any;
   startDate: any;
-  model: any;
-
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService) {
     config.backdrop = 'static';
@@ -46,10 +45,7 @@ export class BookingformComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.model = new NgbDate(2020, 1, 1);
     this.bookingForm = new Booking();
-    // this.bookingForm.departureAPDate = {year: 2020, month: 1, day: 1};
-    // this.bookingForm.arrivalAPDate = {year: 2020, month: 1, day: 1};
     this.airports = [];
     this.temp = [];
     this.showTable = false;
@@ -122,10 +118,10 @@ export class BookingformComponent implements OnInit {
   }
 
   onSubmit() {
-
-    console.log(this.bookingForm.departureAPDate);
-    console.log(this.model);
+    this.bookingForm.departureAPDate = this.departureDatePicker.model;
+    this.bookingForm.arrivalAPDate = this.arrivalDatePicker.model;
     console.log(this.bookingForm);
   }
+
 
 }

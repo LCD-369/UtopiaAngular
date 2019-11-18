@@ -19,6 +19,9 @@
         <button class="btn btn-sm btn-outline-primary" (click)="openFrom(contentFrom)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
   </div>
+  <!-- Datepicker -->
+  <app-ngbd-datepicker-popup #departureDate></app-ngbd-datepicker-popup>
+  <!-- Datepicker -->
 
 <h5><b>Arrival airport</b></h5>
   <div class="input-group mb-3">
@@ -27,20 +30,9 @@
         <button class="btn btn-sm btn-outline-primary" (click)="openTo(contentTo)"><fa-icon [icon]="faSearch"></fa-icon></button>
       </div>
   </div>
+
   <!-- Datepicker -->
-  <!-- <app-ngbd-datepicker-popup #arrivalDate></app-ngbd-datepicker-popup> -->
-<!-- <form class="form-inline"> -->
-  <div class="form-group">
-    <div class="input-group mb-3">
-      <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="model" ngbDatepicker #t="ngbDatepicker">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="t.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
-        </div>
-    </div>
-  </div>
-<!-- </form> -->
-<pre>Model: {{ model | json }}</pre>
-<app-ngbd-datepicker-popup></app-ngbd-datepicker-popup>
+  <app-ngbd-datepicker-popup #arrivalDate></app-ngbd-datepicker-popup>
   <!-- Datepicker -->
 
 <!-- From/To -->
@@ -118,6 +110,7 @@
   </div>
 </ng-template>
 <!-- Modal1 -->
+
 <!-- Modal2 -->
 <ng-template #contentTo let-c="close" let-d="dismiss">
   <div class="modal-header">
