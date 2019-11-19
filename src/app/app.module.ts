@@ -24,6 +24,7 @@ import { UserService } from './services/user.service';
 import { AirportlookupfromComponent } from './airportlookupfrom/airportlookupfrom.component';
 import { AirportlookuptoComponent } from './airportlookupto/airportlookupto.component';
 import { SearchflightformComponent } from './searchflightform/searchflightform.component';
+import { BookingSearchResultComponent } from './booking-search-result/booking-search-result.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SearchflightformComponent } from './searchflightform/searchflightform.c
     AirportlookupmodalComponent,
     AirportlookupfromComponent,
     AirportlookuptoComponent,
-    SearchflightformComponent
+    SearchflightformComponent,
+    BookingSearchResultComponent
   ],
   imports: [
     BrowserModule,

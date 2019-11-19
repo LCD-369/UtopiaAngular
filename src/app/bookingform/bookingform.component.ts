@@ -8,7 +8,6 @@ import { Booking } from '../models/Booking';
 import { AirportService } from '../services/airport.service';
 import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
 
-
 @Component({
   selector: 'app-bookingform',
   templateUrl: './bookingform.component.html',
@@ -31,6 +30,8 @@ export class BookingformComponent implements OnInit {
   airports: Array<Airport>;
   temp: Array<Airport>;
   showTable: boolean;
+  showSearchResult: boolean;
+  hideSearch: boolean;
   searchAirportBy: any;
   regions: any;
   states: any;
@@ -49,6 +50,8 @@ export class BookingformComponent implements OnInit {
     this.airports = [];
     this.temp = [];
     this.showTable = false;
+    this.showSearchResult = true;
+    this.hideSearch = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
     this.states = ['CA', 'CO', 'MA', 'NY', 'TX', 'VA'];
     this.searchAirportBy = {
@@ -121,7 +124,14 @@ export class BookingformComponent implements OnInit {
     this.bookingForm.departureAPDate = this.departureDatePicker.model;
     this.bookingForm.arrivalAPDate = this.arrivalDatePicker.model;
     console.log(this.bookingForm);
+    this.hideSearch = true;
+    this.showSearchResult = false;
   }
 
+  // showBookingSearchResult() {
+  //   if(){
+  //
+  //   }
+  // }
 
 }
