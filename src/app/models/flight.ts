@@ -4,7 +4,7 @@ export class Flight {
   id: number;
   departureAirport: Airport;
   destination: Airport;
-  departureDate: Date;
-  arrivalDate: Date;
+  departureDate: any;
+  arrivalDate: any;
   flightNumber: number;
 }

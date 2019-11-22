@@ -8,46 +8,37 @@ import { AirportService } from '../services/airport.service';
   styleUrls: ['./airportlookupmodal.component.css']
 })
 export class AirportlookupmodalComponent implements OnInit {
-  selectedFromAirport;
+  selectedAirport: Airport;
   airports: Array<Airport>;
   temp: Array<Airport>;
-  searchAirport: Airport = {
-    code: null,
-    name: null,
-    city: null,
-    state: null,
-    country: null,
-  };
-  regionField: boolean;
-  stateField: boolean;
   showTable: boolean;
-  regions;
-  states;
-  regionSelect;
-  stateSelect;
-
+  searchAirportBy: any;
+  regions: any;
+  states: any;
+  regionSelect: any;
+  stateSelect: any;
 
   constructor(private airportService: AirportService) {
-    this.airports = [];
-    this.temp = [];
-   }
+  }
 
   ngOnInit() {
-    this.regionField = false;
-    this.stateField = false;
+    this.airports = [];
+    this.temp = [];
     this.showTable = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
     this.states = ['CA', 'CO', 'MA', 'NY', 'TX', 'VA'];
-    this.airportService.getAirport().subscribe(airports => {
-      this.airports = airports;
-      });
+    this.searchAirportBy = {
+      state: null,
+      country: null
+    };
+    this.airportService.getAirport().subscribe(airports => {this.airports = airports;});
   }
 
   showAirportTable() {
-    if(this.regionField === true && this.stateField === true) {
+    if(this.regionSelect !== null && this.stateSelect !== null) {
         this.airports.forEach((current) => {
-          if(this.searchAirport.country == current.country &&
-          this.searchAirport.state == current.state) {
+          if(this.searchAirportBy.country === current.country &&
+          this.searchAirportBy.state === current.state) {
             this.temp.push(current);
           }
         });
@@ -56,20 +47,18 @@ export class AirportlookupmodalComponent implements OnInit {
   }
 
   selectRegion(region: string) {
-    this.regionField = true;
-    this.searchAirport.country = region;
+    this.searchAirportBy.country = region;
     this.regionSelect = region;
   }
 
   selectState(state: string) {
-    this.stateField = true;
-    this.searchAirport.state = state;
+    this.searchAirportBy.state = state;
     this.stateSelect = state;
     this.showAirportTable();
   }
 
-  selectAirport(airport: Airport) {
-    this.selectedFromAirport = airport;
+  selectAirport(airport) {
+    this.selectAirport = airport;
   }
 
 }

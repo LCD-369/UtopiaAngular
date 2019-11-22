@@ -19,4 +19,10 @@ postUrl = 'http://localhost:8082/search/ticket/';
     return this.http.get<Ticket[]>(this.postUrl)
     .pipe(catchError(this.handleError));
   }
+
+  getAvailableTickets(flightNumber: number) : Observable<Ticket[]> {
+    let getUrl = 'http://localhost:8082/book/ticket/'+flightNumber;
+    return this.http.get<Ticket[]>(getUrl)
+    .pipe(catchError(this.handleError));
+  }
 }

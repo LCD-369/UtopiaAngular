@@ -1,9 +1,7 @@
 export class Airport {
-  code: number;
+  code: string;
   name: string;
   city: string;
   state: string;
   country: string;
-
-  constructor(){}
 }

@@ -1,1 +1,28 @@
-<p>booking-search-result works!</p>
+<pre>{{ flightQuery | json }}</pre>
+<button class="btn btn-sm btn-outline-primary" (click)="ShowFlightResult()">select</button>
+<pre>{{ flightResult | json }}</pre>
+<button class="btn btn-sm btn-outline-primary" (click)="selectFlight()">select</button>
+
+<hr />
+<div class="table-responsive">
+<table *ngIf="showBookingTable" class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Airport</th>
+      <th scope="col">Row</th>
+      <th scope="col">Seat</th>
+      <th scope="col">Seat class</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let ticket of ticketResult">
+    <tr>
+      <td>{{ ticket.flight.departureAirport.name }}</td>
+      <td>{{ ticket.row }}</td>
+      <td>{{ ticket.seat }}</td>
+      <td>{{ ticket.seatClass }}</td>
+      <td><button (click)="selectTicket(ticket)" class="btn btn-raised btn-primary m-1" type="button">Select</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>

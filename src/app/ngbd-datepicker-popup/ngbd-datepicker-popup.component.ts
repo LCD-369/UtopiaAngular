@@ -9,7 +9,7 @@ import {NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NgbdDatepickerPopupComponent implements OnInit {
   faCalendarAlt = faCalendarAlt;
-  model: any;
+  model;
 
   constructor(config: NgbDatepickerConfig) {
     config.minDate = {year: 1900, month: 1, day: 1};

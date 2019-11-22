@@ -1,8 +1,9 @@
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Airport } from './Airport';
 
 export class Booking {
-  departureAP: string;
-  arrivalAP: string;
-  departureAPDate: NgbDate;
-  arrivalAPDate: NgbDate;
+  departureAirport: Airport;
+  destination: Airport;
+  departureDate: any;
+  arrivalDate: any
 }

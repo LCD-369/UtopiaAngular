@@ -7,12 +7,13 @@ import { Airport } from '../models/Airport';
 import { Booking } from '../models/Booking';
 import { AirportService } from '../services/airport.service';
 import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
+// import { AirportlookupmodalComponent } from '../airportlookupmodal/airportlookupmodal.component';
 
 @Component({
   selector: 'app-bookingform',
   templateUrl: './bookingform.component.html',
   styleUrls: ['./bookingform.component.css'],
-  providers: [NgbModalConfig, NgbModal]
+  providers: [NgbModalConfig, NgbModal ]
 })
 export class BookingformComponent implements OnInit {
   @ViewChild('departureDate', {static: true})
@@ -21,24 +22,24 @@ export class BookingformComponent implements OnInit {
   @ViewChild('arrivalDate', {static: true})
   arrivalDatePicker: NgbdDatepickerPopupComponent;
 
+
+
   placeholderMessage = "Please select the search icon";
   faSearch = faSearch;
   faCalendarAlt = faCalendarAlt;
   bookingForm: Booking;
-  selectedFromAirport: Airport;
+  showSearchResult = true;
+
   selectedToAirport: Airport;
+  selectedFromAirport: Airport;
   airports: Array<Airport>;
   temp: Array<Airport>;
   showTable: boolean;
-  showSearchResult: boolean;
-  hideSearch: boolean;
   searchAirportBy: any;
   regions: any;
   states: any;
   regionSelect: any;
   stateSelect: any;
-  startDate: any;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -47,13 +48,12 @@ export class BookingformComponent implements OnInit {
 
   ngOnInit() {
     this.bookingForm = new Booking();
+
     this.airports = [];
     this.temp = [];
     this.showTable = false;
-    this.showSearchResult = true;
-    this.hideSearch = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
-    this.states = ['CA', 'CO', 'MA', 'NY', 'TX', 'VA'];
+    this.states = ['CA', 'CO', 'GA', 'MA', 'MN', 'NY', 'TX', 'VA'];
     this.searchAirportBy = {
       state: null,
       country: null
@@ -69,9 +69,9 @@ export class BookingformComponent implements OnInit {
 
   closeTo() {this.modalService2.dismissAll();}
 
-  getPlaceholder1() {if(this.bookingForm.departureAP == null) {return this.placeholderMessage;} else {return this.bookingForm.departureAP;}}
+  getPlaceholder1() {if(this.bookingForm.departureAirport == null) {return this.placeholderMessage;} else {return this.bookingForm.departureAirport.name;}}
 
-  getPlaceholder2() {if(this.bookingForm.arrivalAP == null) {return this.placeholderMessage;} else {return this.bookingForm.arrivalAP;}}
+  getPlaceholder2() {if(this.bookingForm.destination == null) {return this.placeholderMessage;} else {return this.bookingForm.destination.name;}}
 
   showAirportTable() {
     if(this.regionSelect !== null && this.stateSelect !== null) {
@@ -96,8 +96,8 @@ export class BookingformComponent implements OnInit {
     this.showAirportTable();
   }
 
-  selectFromAirport(airport: Airport) {
-    this.bookingForm.departureAP = airport.name;
+  selectFromAirport(airport) {
+    this.bookingForm.departureAirport = airport;
     this.searchAirportBy = {
       state: null,
       country: null,
@@ -107,9 +107,8 @@ export class BookingformComponent implements OnInit {
     this.temp = [];
     this.closeFrom();
   }
-
-  selectToAirport(airport: Airport) {
-    this.bookingForm.arrivalAP = airport.name;
+  selectToAirport(airport) {
+    this.bookingForm.destination = airport;
     this.searchAirportBy = {
       state: null,
       country: null,
@@ -121,17 +120,18 @@ export class BookingformComponent implements OnInit {
   }
 
   onSubmit() {
-    this.bookingForm.departureAPDate = this.departureDatePicker.model;
-    this.bookingForm.arrivalAPDate = this.arrivalDatePicker.model;
-    console.log(this.bookingForm);
-    this.hideSearch = true;
+    let ddate = this.departureDatePicker.model.year+'-'+this.departureDatePicker.model.month+'-'+this.departureDatePicker.model.day;
+    let adate = this.arrivalDatePicker.model.year+'-'+this.arrivalDatePicker.model.month+'-'+this.arrivalDatePicker.model.day;
+    this.bookingForm.departureDate = ddate;
+    this.bookingForm.arrivalDate = adate;
+  }
+
+  showBookingSearchResult() {
     this.showSearchResult = false;
   }
 
-  // showBookingSearchResult() {
-  //   if(){
-  //
-  //   }
-  // }
+  passQuery() {
+    return this.bookingForm;
+  }
 
 }
