@@ -1,5 +1,5 @@
 <hr />
-<form #bookingForm="ngForm"  novalidate>
+<form #bookingForm="ngForm" novalidate>
 <!-- Ratio Button -->
 <div class="form-check form-check-inline">
   <input class="form-check-input" type="radio"  value="option1">
@@ -9,7 +9,7 @@
   <input class="form-check-input" type="radio"  value="option2">
   <label class="form-check-label" for="inlineRadio2">One way</label>
 </div>
-<!-- Ratio Button -->
+<!-- Ratio Button End -->
 <!-- From/To -->
 <h5><b>Departure airport</b></h5>
 <div class="input-group mb-3">
@@ -20,7 +20,7 @@
 </div>
 <!-- Datepicker -->
 <app-ngbd-datepicker-popup #departureDate></app-ngbd-datepicker-popup>
-<!-- Datepicker -->
+<!-- Datepicker End -->
 <h5><b>Arrival airport</b></h5>
 <div class="input-group mb-3">
   <input class="form-control" type="text" name="arrivalAP" [(ngModel)]="bookingForm.arrivalAP" [placeholder]="getPlaceholder2()" aria-label="to airport">
@@ -30,8 +30,8 @@
 </div>
 <!-- Datepicker -->
 <app-ngbd-datepicker-popup #arrivalDate></app-ngbd-datepicker-popup>
-<!-- Datepicker -->
-<!-- From/To -->
+<!-- Datepicker End -->
+<!-- From/To End -->
 <!-- Num Passengers -->
 <select class="custom-select mt-2">
   <option selected>Number of passengers</option>
@@ -42,11 +42,11 @@
   <option value="5">5</option>
   <option value="6">6</option>
 </select>
-<!-- Num Passengers -->
+<!-- Num Passengers End -->
 </form>
-<button class="btn btn-block btn-outline-primary mt-3" type="button" (click)="showBookingSearchResult(); onSubmit()">Search</button>
+<button class="btn btn-block btn-outline-primary mt-3" type="button" (click)="onSubmit()">Search</button>
 <hr />
-<!-- Modal1 -->
+<!-- Modal One -->
 <ng-template #contentFrom  let-c="close" let-d="dismiss">
   <div class="modal-header">
     <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
@@ -106,8 +106,8 @@
     </div>
   </div>
 </ng-template>
-<!-- Modal1 -->
-<!-- Modal2 -->
+<!-- Modal One End -->
+<!-- ModalTwo -->
 <ng-template #contentTo let-c="close" let-d="dismiss">
   <div class="modal-header">
     <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
@@ -167,5 +167,30 @@
     </div>
   </div>
 </ng-template>
-<!-- Modal2 -->
-<app-booking-search-result [(hidden)]="showSearchResult" [flightQuery]="passQuery()"></app-booking-search-result>
+<!-- Modal Two End -->
+<div *ngIf="showBooking">
+  <h2 class="text-center">Search Result</h2>
+  <hr />
+  <div class="table-responsive">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Airport</th>
+        <th scope="col">Row</th>
+        <th scope="col">Seat</th>
+        <th scope="col">Seat class</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let ticket of ticketResult">
+      <tr>
+        <td>{{ ticket.flight.departureAirport.name }}</td>
+        <td>{{ ticket.row }}</td>
+        <td>{{ ticket.seat }}</td>
+        <td>{{ ticket.seatClass }}</td>
+        <td><button (click)="selectTicket(ticket)" class="btn btn-raised btn-primary m-1" type="button">Select</button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

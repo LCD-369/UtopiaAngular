@@ -15,7 +15,7 @@ postUrl = 'http://localhost:8082/search/api/airport/';
     return throwError('A data error occurred, please try again.');
   }
 
-  getAirport() {
+  getAirport(): Observable<Airport[]> {
     return this.http.get<Airport[]>(this.postUrl)
     .pipe(catchError(this.handleError));
   }

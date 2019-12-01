@@ -1,5 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { Airport } from '../models/Airport';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+// import { Airport } from '../models/Airport';
 import { Booking } from '../models/Booking';
 import { Flight } from '../models/Flight';
 import { Ticket } from '../models/Ticket';
@@ -12,29 +13,48 @@ import { TicketService } from '../services/ticket.service';
   styleUrls: ['./booking-search-result.component.css']
 })
 export class BookingSearchResultComponent implements OnInit {
-  @Input() flightQuery: Booking;
-
+  @Input() flightQuery: Flight;
+  // @Output() EventEmitter<> = new EventEmitter();
   showBookingTable: boolean;
-  flightResult: Flight;
+  // flightResult: Flight;
   ticketResult: Array<Ticket>;
-
-
 
   constructor(private flightService: FlightService, private ticketService: TicketService) { }
 
   ngOnInit() {
     this.showBookingTable = false;
+    this.ticketResult = [];
+    // this.flightQuery = {
+    //   id: null,
+    //   departureAirport: {
+    //     code: null,
+    //     name: null,
+    //     city: null,
+    //     state: null,
+    //     country: null
+    //   },
+    //   destination: {
+    //     code: null,
+    //     name: null,
+    //     city: null,
+    //     state: null,
+    //     country: null
+    //   },
+    //   departureDate: null,
+    //   arrivalDate: null,
+    //   flightNumber: null
+    // }
+    // this.flightQuery = new Flight();
   }
 
-  ShowFlightResult(){
-    this.flightService.findFlight(this.flightQuery).subscribe((flight: Flight) => {
-        this.flightResult = flight;
-      });
-
-  }
+  // ShowFlightResult() {
+  //   this.flightService.findFlight(this.flightQuery).subscribe((flight: Flight) => {
+  //       this.flightResult = flight;
+  //     });
+  // }
 
   ShowAvailability(flightNumber) {
-      console.log(this.flightResult.id);
+      console.log(this.flightQuery.id);
     this.ticketService.getAvailableTickets(flightNumber).subscribe(tickets => {
       this.ticketResult = tickets;
     });
@@ -42,7 +62,7 @@ export class BookingSearchResultComponent implements OnInit {
   }
 
   selectFlight() {
-    this.ShowAvailability(this.flightResult.id);
+    this.ShowAvailability(this.flightQuery.id);
   }
 
   selectTicket(ticket){
