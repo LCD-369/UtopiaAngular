@@ -2,8 +2,7 @@ export class User {
   id: number;
   username: string;
   password: string;
-  displayName: String;
-  role: number;
+  displayName: string;
   email: string;
   phone: string;
 }

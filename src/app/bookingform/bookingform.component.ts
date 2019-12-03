@@ -1,14 +1,17 @@
 import { Component, OnInit, ViewChild, ContentChild } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
-// import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airport } from '../models/Airport';
 import { Booking } from '../models/Booking';
 import { Flight } from '../models/Flight';
+import { User } from '../models/User';
+import { Login } from '../models/Login';
 import { AirportService } from '../services/airport.service';
 import { FlightService } from '../services/flight.service';
 import { TicketService } from '../services/ticket.service';
+import { UserService } from '../services/user.service';
 import { Ticket } from '../models/Ticket';
 import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
 // import { BookingSearchResultComponent } from '../booking-search-result/booking-search-result.component';
@@ -33,27 +36,21 @@ export class BookingformComponent implements OnInit {
   // bookingResultComponent2: BookingSearchResultComponent;
 
   placeholderMessage = "Please select the search icon";
-  faSearch = faSearch;
-  faCalendarAlt = faCalendarAlt;
+  faSearch = faSearch; faCalendarAlt = faCalendarAlt;
   bookingForm: Booking;
-  showSearchResult = true;
-
-  selectedToAirport: Airport;
-  selectedFromAirport: Airport;
-  airports: Array<Airport>;
-  temp: Array<Airport>;
-  ticketResult: Array<Ticket>;
-  flightQuery: Flight;
-  flightResult: Flight;
-  showTable: boolean;
+  // userForm: Login;
+  selectedToAirport: Airport; selectedFromAirport: Airport; selectedTicket: Ticket; activeUser;
+  airports: Array<Airport>; temp: Array<Airport>; ticketResult: Array<Ticket>;
+  flightQuery: Flight; flightResult: Flight;
+  initialForm: boolean; showSearchResult: boolean; showTable: boolean; showBooking: boolean;
+  showUserInfo: boolean; bookingCard: boolean; successfullReservation: boolean; unsuccessfullReservation: boolean;
+  findUser: boolean;
   searchAirportBy: any;
-  regions: any;
-  states: any;
-  regionSelect: any;
-  stateSelect: any;
-  showBooking: boolean;
+  regions: any; states: any; regionSelect: any; stateSelect: any;
+  userForm: FormGroup;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService, private flightService: FlightService, private ticketService: TicketService) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService,
+    private flightService: FlightService, private ticketService: TicketService, private userService: UserService, private fb: FormBuilder) {
     config.backdrop = 'static';
     config.keyboard = false;
     config.centered = true;
@@ -61,10 +58,18 @@ export class BookingformComponent implements OnInit {
 
   ngOnInit() {
     this.bookingForm = new Booking();
+    this.activeUser = new Object();
+    this.userForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+    // this.userForm = new Login();
     this.airports = [];
     this.temp = [];
-    this.showTable = false;
-    this.myExpression = false;
+    this.initialForm = false; this.showTable = false; this.showBooking = false;
+    this.showUserInfo = false; this.showSearchResult = true; this.bookingCard = false;
+    this.successfullReservation = false; this.unsuccessfullReservation = false;
+    this.findUser = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
     this.states = ['CA', 'CO', 'GA', 'MA', 'MN', 'NY', 'TX', 'VA'];
     this.searchAirportBy = {
@@ -138,7 +143,7 @@ export class BookingformComponent implements OnInit {
     let adate = this.arrivalDatePicker.model.year+'-'+this.arrivalDatePicker.model.month+'-'+this.arrivalDatePicker.model.day;
     this.bookingForm.departureDate = ddate;
     this.bookingForm.arrivalDate = adate;
-    console.log(this.bookingForm);
+    this.initialForm = true;
     this.showAllBookings();
   }
 
@@ -149,8 +154,6 @@ export class BookingformComponent implements OnInit {
 
   passFlight() {
     this.flightService.findFlight(this.bookingForm).subscribe((flight: Flight) => {
-        console.log(flight);
-        console.log(flight.id);
         this.showAvailability(flight.id)
       });
   }
@@ -162,6 +165,41 @@ export class BookingformComponent implements OnInit {
   }
 
   selectTicket(ticket){
+    this.showBooking = false;
+    this.selectedTicket = ticket;
+    this.showUserInfo = true;
+  }
+
+  onSearchUser() {
+
+    this.userService.findUser(this.userForm).subscribe(user => {
+      this.activeUser = user;
+      if (this.activeUser == null){
+        this.findUser = true;
+      } else {
+        this.findUser = false;
+        this.showUserInfo = false;
+        this.bookingCard = true;
+      }
+    }, error => {
+      console.log(error);
+      this.findUser = true;
+    })
+
+  }
+
+  onBookFlight() {
+    this.ticketService.reserveFlight(this.selectedTicket, this.activeUser).subscribe(response => {
+      console.log(response);
+      this.successfullReservation = true;
+    }, error => {
+      console.log(error);
+      this.unsuccessfullReservation = true;
+    })
+  }
+
+  restartBooking() {
+    this.ngOnInit();
   }
 
 }
