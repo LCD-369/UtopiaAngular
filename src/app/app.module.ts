@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -26,6 +27,7 @@ import { AirportlookupfromComponent } from './airportlookupfrom/airportlookupfro
 import { AirportlookuptoComponent } from './airportlookupto/airportlookupto.component';
 import { SearchflightformComponent } from './searchflightform/searchflightform.component';
 import { BookingSearchResultComponent } from './booking-search-result/booking-search-result.component';
+import { CancelbookingComponent } from './cancelbooking/cancelbooking.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { BookingSearchResultComponent } from './booking-search-result/booking-se
     AirportlookupfromComponent,
     AirportlookuptoComponent,
     SearchflightformComponent,
-    BookingSearchResultComponent
+    BookingSearchResultComponent,
+    CancelbookingComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { BookingSearchResultComponent } from './booking-search-result/booking-se
     ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule, BrowserAnimationsModule
   ],
   providers: [FlightService, TicketService, AirportService, UserService],
   bootstrap: [AppComponent]

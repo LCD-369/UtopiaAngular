@@ -2,13 +2,13 @@
 <ngb-tabset [justify]="currentJustify" type="tabs">
   <!-- Booking -->
   <ngb-tab>
-    <ng-template ngbTabTitle><b>Book Flight</b></ng-template>
+    <ng-template ngbTabTitle><b>Book or Cancel Flight</b></ng-template>
     <ng-template ngbTabContent>
       <div class="p-5">
       <ngb-tabset [justify]="currentJustify" type="pills">
         <!-- Book flight tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Flight</b></ng-template>
+          <ng-template ngbTabTitle><b>Book flight</b></ng-template>
           <ng-template ngbTabContent>
             <div class="container m-auto">
               <div class="row mt-4" style="place-content: end center">
@@ -22,14 +22,21 @@
         <!-- Book flight tab -->
         <!-- Vacation tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Vacation packages</b></ng-template>
+          <ng-template ngbTabTitle><b>Cancel booking</b></ng-template>
           <ng-template ngbTabContent>
+            <div class="container m-auto">
+              <div class="row mt-4" style="place-content: end center">
+              <div class="col-sm-7">
+                <app-cancelbooking></app-cancelbooking>
+              </div>
+              </div>
+            </div>
           </ng-template>
         </ngb-tab>
         <!-- Vacation tab -->
         <!-- Hotel tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Hotel</b></ng-template>
+          <ng-template ngbTabTitle><b>Vacation packages</b></ng-template>
           <ng-template ngbTabContent>
           </ng-template>
         </ngb-tab>
