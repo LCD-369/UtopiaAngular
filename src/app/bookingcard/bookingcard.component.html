@@ -1,16 +1,17 @@
-<div class="container p-5 shadow bg-white" style="margin-top: -100px; z-index: 7; position: relative;">
+<div class="container p-5 shadow bg-white"  style="margin-top: -100px; z-index: 8; position: relative">
+
 <ngb-tabset [justify]="currentJustify" type="tabs">
   <!-- Booking -->
   <ngb-tab>
-    <ng-template ngbTabTitle><b>Book or Cancel Flight</b></ng-template>
+    <ng-template ngbTabTitle>Book or Cancel Flight</ng-template>
     <ng-template ngbTabContent>
       <div class="p-5">
       <ngb-tabset [justify]="currentJustify" type="pills">
         <!-- Book flight tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Book flight</b></ng-template>
+          <ng-template ngbTabTitle>Book Flight</ng-template>
           <ng-template ngbTabContent>
-            <div class="container m-auto">
+            <div class="container m-auto shadow-sm">
               <div class="row mt-4" style="place-content: end center">
               <div class="col-sm-7">
                 <app-bookingform></app-bookingform>
@@ -20,24 +21,31 @@
           </ng-template>
         </ngb-tab>
         <!-- Book flight tab -->
-        <!-- Vacation tab -->
+        <!-- Cancel tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Cancel booking</b></ng-template>
+          <ng-template ngbTabTitle>Cancel Booking</ng-template>
           <ng-template ngbTabContent>
-            <div class="container m-auto">
+            <div class="container m-auto shadow-sm">
               <div class="row mt-4" style="place-content: end center">
               <div class="col-sm-7">
                 <app-cancelbooking></app-cancelbooking>
               </div>
               </div>
+              <br />
             </div>
           </ng-template>
         </ngb-tab>
-        <!-- Vacation tab -->
+        <!-- Cancel tab -->
         <!-- Hotel tab -->
         <ngb-tab>
-          <ng-template ngbTabTitle><b>Vacation packages</b></ng-template>
+          <ng-template ngbTabTitle>Vacation Packages</ng-template>
           <ng-template ngbTabContent>
+            <div class="container m-auto shadow-sm">
+              <div class="row mt-4" style="place-content: end center">
+              <div class="col-sm-7">
+              </div>
+              </div>
+            </div>
           </ng-template>
         </ngb-tab>
         <!-- Hotel tab -->
@@ -48,7 +56,7 @@
   <!-- Booking -->
   <!-- Search Flights -->
   <ngb-tab>
-    <ng-template ngbTabTitle><b>Search Flight</b></ng-template>
+    <ng-template ngbTabTitle>Search Flight</ng-template>
     <ng-template ngbTabContent>
       <div class="container m-auto">
         <div class="row mt-4" style="place-content: end center">
@@ -62,19 +70,21 @@
   <!-- Search Flights -->
   <!-- User Login -->
   <ngb-tab>
-    <ng-template ngbTabTitle><b>User Login</b></ng-template>
+    <ng-template ngbTabTitle>User Login</ng-template>
     <ng-template ngbTabContent>
-      <div class="container m-auto">
+      <div class="container m-auto shadow-sm">
         <div class="row mt-4" style="place-content: end center">
         <div class="col-sm-7">
           <app-logincard></app-logincard>
         </div>
         </div>
+        <br />
       </div>
     </ng-template>
   </ngb-tab>
   <!-- User Login -->
 </ngb-tabset>
 </div>
+
 <br />
 <br />

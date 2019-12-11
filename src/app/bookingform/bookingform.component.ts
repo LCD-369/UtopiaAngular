@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild, ContentChild } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airport } from '../models/Airport';
 import { Booking } from '../models/Booking';
 import { Flight } from '../models/Flight';
-import { User } from '../models/User';
-import { Login } from '../models/Login';
 import { AirportService } from '../services/airport.service';
 import { FlightService } from '../services/flight.service';
 import { TicketService } from '../services/ticket.service';
@@ -36,15 +35,16 @@ export class BookingformComponent implements OnInit {
   // bookingResultComponent2: BookingSearchResultComponent;
 
   placeholderMessage = "Please select the search icon";
-  faSearch = faSearch; faCalendarAlt = faCalendarAlt;
+  faSearch = faSearch; faCalendarAlt = faCalendarAlt; faArrowCircleDown = faArrowCircleDown;
   bookingForm: Booking;
   // userForm: Login;
-  selectedToAirport: Airport; selectedFromAirport: Airport; selectedTicket: Ticket; activeUser;
+  selectedToAirport: Airport; selectedFromAirport: Airport; selectedTicket: Ticket; activeUser: any;
   airports: Array<Airport>; temp: Array<Airport>; ticketResult: Array<Ticket>;
   flightQuery: Flight; flightResult: Flight;
   initialForm: boolean; showSearchResult: boolean; showTable: boolean; showBooking: boolean;
   showUserInfo: boolean; bookingCard: boolean; successfullReservation: boolean; unsuccessfullReservation: boolean;
   findUser: boolean;
+  isLoading: boolean; hideElements: boolean;
   searchAirportBy: any;
   regions: any; states: any; regionSelect: any; stateSelect: any;
   userForm: FormGroup;
@@ -70,6 +70,8 @@ export class BookingformComponent implements OnInit {
     this.showUserInfo = false; this.showSearchResult = true; this.bookingCard = false;
     this.successfullReservation = false; this.unsuccessfullReservation = false;
     this.findUser = false;
+    this.isLoading = false;
+    this.hideElements = false;
     this.regions = ['United States', 'United Kindom', 'Europe'];
     this.states = ['CA', 'CO', 'GA', 'MA', 'MN', 'NY', 'TX', 'VA'];
     this.searchAirportBy = {
@@ -114,7 +116,7 @@ export class BookingformComponent implements OnInit {
     this.showAirportTable();
   }
 
-  selectFromAirport(airport) {
+  selectFromAirport(airport: any) {
     this.bookingForm.departureAirport = airport;
     this.searchAirportBy = {
       state: null,
@@ -139,6 +141,7 @@ export class BookingformComponent implements OnInit {
   }
 
   onSubmit() {
+    this.activeSpinner();
     let ddate = this.departureDatePicker.model.year+'-'+this.departureDatePicker.model.month+'-'+this.departureDatePicker.model.day;
     let adate = this.arrivalDatePicker.model.year+'-'+this.arrivalDatePicker.model.month+'-'+this.arrivalDatePicker.model.day;
     this.bookingForm.departureDate = ddate;
@@ -162,6 +165,7 @@ export class BookingformComponent implements OnInit {
     this.ticketService.getAvailableTickets(id).subscribe(tickets => {
       this.ticketResult = tickets;
     });
+    this.inactiveSpinner();
   }
 
   selectTicket(ticket){
@@ -171,35 +175,51 @@ export class BookingformComponent implements OnInit {
   }
 
   onSearchUser() {
-
+    this.activeSpinner();
     this.userService.findUser(this.userForm).subscribe(user => {
       this.activeUser = user;
       if (this.activeUser == null){
+        this.inactiveSpinner();
         this.findUser = true;
       } else {
         this.findUser = false;
         this.showUserInfo = false;
         this.bookingCard = true;
+        this.inactiveSpinner();
       }
     }, error => {
       console.log(error);
+      this.inactiveSpinner();
       this.findUser = true;
     })
 
   }
 
   onBookFlight() {
+    this.activeSpinner();
     this.ticketService.reserveFlight(this.selectedTicket, this.activeUser).subscribe(response => {
       console.log(response);
       this.successfullReservation = true;
+      this.inactiveSpinner();
     }, error => {
       console.log(error);
+      this.inactiveSpinner();
       this.unsuccessfullReservation = true;
     })
   }
 
   restartBooking() {
     this.ngOnInit();
+  }
+
+  activeSpinner() {
+    this.isLoading = true;
+    this.hideElements = true;
+  }
+
+  inactiveSpinner() {
+    this.isLoading = false;
+    this.hideElements = false;
   }
 
 }

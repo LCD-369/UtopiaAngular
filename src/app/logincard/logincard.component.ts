@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { FormGroup, FormControl } from '@angular/forms';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-logincard',
@@ -7,14 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logincard.component.css']
 })
 export class LogincardComponent implements OnInit {
-  // loginForm = new FormGroup({
-  // userEmail: new FormControl(''),
-  // userPassword: new FormControl('')
-  //
-  // });
-  constructor() { }
+  faLock = faLock;
+  userForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.userForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   loginUser() {

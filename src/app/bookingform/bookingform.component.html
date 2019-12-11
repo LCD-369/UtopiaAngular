@@ -1,16 +1,6 @@
   <hr />
 <div [hidden]="initialForm">
-  <form #bookingForm="ngForm" novalidate>
-    <!-- Ratio Button -->
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio"  value="option1">
-      <label class="form-check-label" for="inlineRadio1">Round trip</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio"  value="option2">
-      <label class="form-check-label" for="inlineRadio2">One way</label>
-    </div>
-    <!-- Ratio Button End -->
+  <form #bookingForm="ngForm" [hidden]="hideElements" novalidate>
     <!-- From/To -->
     <h5><b>Departure airport</b></h5>
     <div class="input-group mb-3">
@@ -33,20 +23,14 @@
     <app-ngbd-datepicker-popup #arrivalDate></app-ngbd-datepicker-popup>
     <!-- Datepicker End -->
     <!-- From/To End -->
-    <!-- Num Passengers -->
-    <select class="custom-select mt-2">
-      <option selected>Number of passengers</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-    </select>
-    <!-- Num Passengers End -->
   </form>
-  <button class="btn btn-block btn-outline-primary mt-3" type="button" (click)="onSubmit()">Search</button>
-  <hr />
+  <button class="btn btn-block btn-outline-primary mt-3 mb-3" type="button" (click)="onSubmit()">Search</button>
+
+</div>
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
 </div>
 <!-- Modal One -->
 <ng-template #contentFrom  let-c="close" let-d="dismiss">
@@ -171,8 +155,8 @@
 </ng-template>
 <!-- Modal Two End -->
 <!-- Ticket Table -->
-<div *ngIf="showBooking">
-  <h2 class="text-center"><b>Search result</b></h2>
+<div *ngIf="showBooking" [hidden]="hideElements">
+  <h2 class="text-center rounded bg-dark m-auto p-2 text-white"><b>Search result</b></h2>
   <hr />
   <div class="table-responsive">
   <table class="table">
@@ -199,28 +183,31 @@
 </div>
 <!-- Ticket Table End -->
 <!-- User Info -->
-<div *ngIf="showUserInfo">
-  <h2 class="text-center"><b>Enter user information before booking</b></h2>
-  <form [formGroup]="userForm">
+<div *ngIf="showUserInfo" [hidden]="hideElements">
+  <div class="text-center rounded bg-dark m-auto p-2 text-white">
+  <h2>Enter user information before booking</h2>
+  <fa-icon [icon]="faArrowCircleDown"></fa-icon>
+  </div>
+  <form [formGroup]="userForm" class="text-center">
     <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" formControlName="username"  aria-describedby="enter username" placeholder="Enter username" required>
+      <label for="username" class="lead">Username</label>
+      <input type="text" class="form-control text-center" formControlName="username"  aria-describedby="enter username" placeholder="Enter username" required>
       <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" formControlName="password"  aria-describedby="enter password" placeholder="Password" required>
+      <label for="password" class="lead">Password</label>
+      <input type="password" class="form-control text-center" formControlName="password"  aria-describedby="enter password" placeholder="Password" required>
     </div>
-    <button type="button" class="btn btn-primary btn-block" [disabled]="!userForm.valid" (click)="onSearchUser()">Enter</button>
+    <button type="button" class="btn btn-outline-primary btn-block" [disabled]="!userForm.valid" (click)="onSearchUser()">Enter</button>
   </form>
-
+  <br />
   <div *ngIf="findUser">
       <br />
     <h5 class="text-center rounded bg-danger text-white p-5">Could not find user. Please try again</h5>
   </div>
 </div>
 <!-- User Info End -->
-<div *ngIf="bookingCard" class="card text-center" style="margin: auto">
+<div *ngIf="bookingCard" class="card text-center" style="margin: auto" [hidden]="hideElements">
   <div class="card-body">
     <h5 class="card-title"><b>Confirm Booking</b></h5>
     <hr />
@@ -230,16 +217,17 @@
     <p class="card-text"><b>Row:</b> {{ selectedTicket.row }}</p>
     <p class="card-text"><b>Seat:</b> {{ selectedTicket.seat }}</p>
     <p class="card-text"><b>Class:</b> {{ selectedTicket.seatClass }}</p>
-    <button type="button" class="btn btn-primary btn-block" (click)="onBookFlight()">Booking Flight</button>
+    <button type="button" class="btn btn-outline-primary btn-block" (click)="onBookFlight()">Booking Flight</button>
   </div>
 </div>
 <div *ngIf="successfullReservation">
     <br />
-  <h5 class="text-center rounded bg-success text-white p-5">This Flight has been successfully reserved!</h5>
+  <h5 class="text-center rounded bg-success text-white p-3">This Flight has been successfully reserved!</h5>
   <button type="button" class="btn btn-primary btn-block" (click)="restartBooking()">Reserve another flight</button>
 </div>
 <div *ngIf="unsuccessfullReservation">
     <br />
-  <h5 class="text-center rounded bg-danger text-white p-5">Oops! Something went wrong. Please try again.</h5>
+  <h5 class="text-center rounded bg-danger text-white p-3">Oops! Something went wrong. Please try again.</h5>
   <button type="button" class="btn btn-primary btn-block" (click)="restartBooking()">Restart booking form</button>
 </div>
+<br />

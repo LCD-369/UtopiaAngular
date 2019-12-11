@@ -1,39 +1,30 @@
-<form  (ngSubmit)="searchFlightTickets()">
-  <div class="form-group">
-    <label for="formGroupExampleInput2"><h4><b>Search by departure airport</b></h4></label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Departure Airport">
-    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-block btn-primary m-1" type="button">Search</button>
+<div class="container justify-content-center shadow-sm">
+<div class="text-center rounded bg-dark m-auto p-2 text-white">
+  <h1 class="lead">Select the departure or destination tab before entering the airport name below</h1>
+  <fa-icon [icon]="faArrowCircleDown"></fa-icon>
+</div>
+<br />
+<div class="text-center mb-1">
+  <div class="btn-group" role="group" aria-label="Button group">
+    <button type="button" class="btn btn-secondary" [class.active]="departure" (click)="selectDeparture()">Departure</button>
+    <button type="button" class="btn btn-secondary" [class.active]="destination" (click)="selectDestination()">Destination</button>
   </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput3"><h4><b>Search by airport destination</b></h4></label>
-    <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Destination">
-    <button (click)="selectFromAirport(airport)" class="btn btn-raised btn-block btn-primary m-1" type="button">Search</button>
+</div>
+<div>
+  <input *ngIf="departure" type="text" class="form-control text-center" (keyup)="searchDepTerm.next($event)" placeholder="Enter airport name">
+  <input *ngIf="destination" type="text" class="form-control text-center" (keyup)="searchDesTerm.next($event)" placeholder="Enter airport name">
+  <div *ngIf="loading" class="d-flex justify-content-center mt-2">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Searching...</span>
+    </div>
   </div>
-</form>
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-  <span class="navbar-brand">Search Filter</span>
-  <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
-        <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown3" role="button">
-          Filters
-        </a>
-        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-          <a class="dropdown-item" href="#" (click)="$event.preventDefault()">By Departure Date</a>
-          <a class="dropdown-item" href="#" (click)="$event.preventDefault()">By Departure Airport</a>
-          <a class="dropdown-item" href="#" (click)="$event.preventDefault()">By Arrival Airport</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-
+</div>
+<br />
+<div *ngIf="noMatches">
+  <h3 class="text-center">No Matches</h3>
+</div>
 <div class="table-responsive">
-<table *ngIf="showTable" class="table">
+<table *ngIf="searchResults" class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Departure Airport</th>
@@ -44,15 +35,17 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody *ngFor="let flight of flights">
+  <tbody *ngFor="let result of searchResults">
     <tr>
-      <td>{{ flight.departureAirport.name }}</td>
-      <td>{{ flight.destination.name }}</td>
-      <td>{{ flight.departureDate }}</td>
-      <td>{{ flight.arrivalDate }}</td>
-      <td>{{ flight.flightNumber }}</td>
-      <td><button (click)="selectFlight(flight)" class="btn btn-raised btn-primary m-1" type="button">Book Ticket</button></td>
+      <td>{{ result.departureAirport.name }}</td>
+      <td>{{ result.destination.name }}</td>
+      <td>{{ result.departureDate }}</td>
+      <td>{{ result.arrivalDate }}</td>
+      <td>{{ result.flightNumber }}</td>
+      <td><button (click)="selectFlight(result)" class="btn btn-raised btn-primary m-1" type="button">Book Ticket</button></td>
     </tr>
   </tbody>
 </table>
+</div>
+
 </div>

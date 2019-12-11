@@ -1,13 +1,15 @@
-<div class="d-block d-lg-block">
+
+<div class="d-block d-lg-block bg-white">
   <ngb-carousel>
 
     <ng-template ngbSlide>
       <div class="carouselBlock">
         <img class="d-block img-fluid" src="assets/images/image3.jpg" alt="first slide">
       </div>
-      <div class="carousel-caption" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)); border-radius: 10px">
-        <h1 class="text-light"><b>Explore the World with Utopia Airlines</b></h1>
-        <h2>Book your next world adventure now</h2>
+      <div class="carousel-caption"  style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)); border-radius: 5px;">
+        <h1 class="text-light" [@lightSpeedIn]="lightSpeedIn">Explore the world with Utopia Airlines</h1>
+        <div [@lightSpeedIn]="lightSpeedIn" style="border-bottom: solid; border-width: 1px; width: 20%; margin: auto"></div>
+        <h2 class="lead mt-2" [@lightSpeedIn]="lightSpeedIn">Book your next world adventure now</h2>
       </div>
     </ng-template>
 
@@ -15,9 +17,12 @@
       <div class="carouselBlock">
         <img class="d-block img-fluid" src="assets/images/image2.jpg" alt="second slide">
       </div>
-      <div class="carousel-caption" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)); border-radius: 10px">
-        <h1 class="text-light"><b>Earn bonus miles after qualifying purchases</b></h1>
-        <button type="button" class="btn btn-outline-light">Click here for more information</button>
+      <div class="carousel-caption">
+      <div class="p-3" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)); border-radius: 5px;">
+
+        <h1 class="text-light" [@lightSpeedIn]="lightSpeedIn">Earn bonus miles after qualifying purchases</h1>
+        <button type="button" [@lightSpeedIn]="lightSpeedIn" class="btn btn-outline-light mt-2">Click here for more information</button>
+      </div>
       </div>
     </ng-template>
 
