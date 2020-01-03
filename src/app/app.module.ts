@@ -17,18 +17,18 @@ import { LogincardComponent } from './logincard/logincard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginmodalComponent } from './loginmodal/loginmodal.component';
 import { BookingformComponent } from './bookingform/bookingform.component';
-import { SearchformComponent } from './searchform/searchform.component';
 import { NgbdDatepickerPopupComponent } from './ngbd-datepicker-popup/ngbd-datepicker-popup.component';
-import { AirportlookupmodalComponent } from './airportlookupmodal/airportlookupmodal.component';
 import { FlightService } from './services/flight.service';
 import { TicketService } from './services/ticket.service';
 import { AirportService } from './services/airport.service';
 import { UserService } from './services/user.service';
-import { AirportlookupfromComponent } from './airportlookupfrom/airportlookupfrom.component';
-import { AirportlookuptoComponent } from './airportlookupto/airportlookupto.component';
 import { SearchflightformComponent } from './searchflightform/searchflightform.component';
-import { BookingSearchResultComponent } from './booking-search-result/booking-search-result.component';
 import { CancelbookingComponent } from './cancelbooking/cancelbooking.component';
+import { UserreserveformComponent } from './userreserveform/Userreserveform.component';
+import { UserpageComponent } from './userpage/userpage.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ProfilemodalComponent } from './profilemodal/profilemodal.component';
+import { RegisteruserComponent } from './register-user/registeruser.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +40,14 @@ import { CancelbookingComponent } from './cancelbooking/cancelbooking.component'
     LogincardComponent,
     LoginmodalComponent,
     BookingformComponent,
-    SearchformComponent,
     NgbdDatepickerPopupComponent,
-    AirportlookupmodalComponent,
-    AirportlookupfromComponent,
-    AirportlookuptoComponent,
     SearchflightformComponent,
-    BookingSearchResultComponent,
-    CancelbookingComponent
+    CancelbookingComponent,
+    UserreserveformComponent,
+    UserpageComponent,
+    RegistrationComponent,
+    ProfilemodalComponent,
+    RegisteruserComponent
   ],
   imports: [
     BrowserModule,

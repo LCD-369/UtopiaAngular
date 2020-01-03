@@ -1,9 +1,10 @@
 <ng-template #content  let-d="dismiss">
+
   <div class="modal-header">
     <button type="button text-dark text-right" class="close" aria-label="Close" (click)="d('Cross click')">X</button>
   </div>
   <div class="p-4">
-    <app-logincard (closeParentModal)="dismissModal($event)"></app-logincard>
+    <app-userpage (closeParentModal)="dismissModal($event)"></app-userpage>
   </div>
 </ng-template>
-<button class="btn btn-sm btn-outline-primary" (click)="open(content)">Login</button>
+<button class="btn btn-sm btn-outline-primary" (click)="open(content)">User Profile</button>

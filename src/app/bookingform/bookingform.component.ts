@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ContentChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
+import anime from 'animejs';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airport } from '../models/Airport';
@@ -13,7 +14,6 @@ import { TicketService } from '../services/ticket.service';
 import { UserService } from '../services/user.service';
 import { Ticket } from '../models/Ticket';
 import { NgbdDatepickerPopupComponent } from '../ngbd-datepicker-popup/ngbd-datepicker-popup.component';
-// import { BookingSearchResultComponent } from '../booking-search-result/booking-search-result.component';
 
 @Component({
   selector: 'app-bookingform',
@@ -28,29 +28,37 @@ export class BookingformComponent implements OnInit {
   @ViewChild('arrivalDate', {static: true})
   arrivalDatePicker: NgbdDatepickerPopupComponent;
 
-  // @ViewChild('bookingresultComponent', {static: true})
-  // bookingResultComponent: BookingSearchResultComponent;
-
-  // @ContentChild(myPredicate, {static: true})
-  // bookingResultComponent2: BookingSearchResultComponent;
-
   placeholderMessage = "Please select the search icon";
   faSearch = faSearch; faCalendarAlt = faCalendarAlt; faArrowCircleDown = faArrowCircleDown;
   bookingForm: Booking;
-  // userForm: Login;
-  selectedToAirport: Airport; selectedFromAirport: Airport; selectedTicket: Ticket; activeUser: any;
-  airports: Array<Airport>; temp: Array<Airport>; ticketResult: Array<Ticket>;
-  flightQuery: Flight; flightResult: Flight;
-  initialForm: boolean; showSearchResult: boolean; showTable: boolean; showBooking: boolean;
-  showUserInfo: boolean; bookingCard: boolean; successfullReservation: boolean; unsuccessfullReservation: boolean;
+  selectedToAirport: Airport;
+  selectedFromAirport: Airport;
+  selectedTicket: Ticket;
+  activeUser: any;
+  airports: Array<Airport>;
+  temp: Array<Airport>;
+  ticketResult: Array<Ticket>;
+  flightQuery: Flight;
+  flightResult: Flight;
+  initialForm: boolean;
+  showSearchResult: boolean;
+  showTable: boolean;
+  showBooking: boolean;
+  showUserInfo: boolean;
+  bookingCard: boolean;
+  successfullReservation: boolean;
+  unsuccessfullReservation: boolean;
   findUser: boolean;
-  isLoading: boolean; hideElements: boolean;
+  isLoading: boolean;
+  hideElements: boolean;
   searchAirportBy: any;
   regions: any; states: any; regionSelect: any; stateSelect: any;
   userForm: FormGroup;
+  something: any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private modalService2: NgbModal, private airportService: AirportService,
-    private flightService: FlightService, private ticketService: TicketService, private userService: UserService, private fb: FormBuilder) {
+    private flightService: FlightService, private ticketService: TicketService,
+    private userService: UserService, private fb: FormBuilder) {
     config.backdrop = 'static';
     config.keyboard = false;
     config.centered = true;
@@ -63,7 +71,6 @@ export class BookingformComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    // this.userForm = new Login();
     this.airports = [];
     this.temp = [];
     this.initialForm = false; this.showTable = false; this.showBooking = false;
@@ -78,20 +85,49 @@ export class BookingformComponent implements OnInit {
       state: null,
       country: null
     };
-    this.airportService.getAirport().subscribe(airports => {this.airports = airports;});
+    this.airportService.getAirport().subscribe(airports => {
+      this.airports = airports;
+    });
+    this.something = anime({
+     targets: '',
+     translateX: 250,
+     rotate: '1turn',
+     backgroundColor: '#FFF',
+     duration: 800
+   })
   }
 
-  openFrom(contentFrom) {this.modalService.open(contentFrom);}
+  openFrom(contentFrom) {
+    this.modalService.open(contentFrom);
+  }
 
-  openTo(contentTo) {this.modalService2.open(contentTo);}
+  openTo(contentTo) {
+    this.modalService2.open(contentTo);
+  }
 
-  closeFrom() {this.modalService.dismissAll();}
+  closeFrom() {
+    this.modalService.dismissAll();
+  }
 
-  closeTo() {this.modalService2.dismissAll();}
+  closeTo() {
+    this.modalService2.dismissAll();
+  }
 
-  getPlaceholder1() {if(this.bookingForm.departureAirport == null) {return this.placeholderMessage;} else {return this.bookingForm.departureAirport.name;}}
+  getPlaceholder1() {
+    if(this.bookingForm.departureAirport == null) {
+      return this.placeholderMessage;
+    } else {
+      return this.bookingForm.departureAirport.name;
+    }
+  }
 
-  getPlaceholder2() {if(this.bookingForm.destination == null) {return this.placeholderMessage;} else {return this.bookingForm.destination.name;}}
+  getPlaceholder2() {
+    if(this.bookingForm.destination == null) {
+      return this.placeholderMessage;
+    } else {
+      return this.bookingForm.destination.name;
+    }
+  }
 
   showAirportTable() {
     if(this.regionSelect !== null && this.stateSelect !== null) {
@@ -168,31 +204,10 @@ export class BookingformComponent implements OnInit {
     this.inactiveSpinner();
   }
 
-  selectTicket(ticket){
+  selectTicket(ticket: any){
     this.showBooking = false;
     this.selectedTicket = ticket;
     this.showUserInfo = true;
-  }
-
-  onSearchUser() {
-    this.activeSpinner();
-    this.userService.findUser(this.userForm).subscribe(user => {
-      this.activeUser = user;
-      if (this.activeUser == null){
-        this.inactiveSpinner();
-        this.findUser = true;
-      } else {
-        this.findUser = false;
-        this.showUserInfo = false;
-        this.bookingCard = true;
-        this.inactiveSpinner();
-      }
-    }, error => {
-      console.log(error);
-      this.inactiveSpinner();
-      this.findUser = true;
-    })
-
   }
 
   onBookFlight() {
@@ -206,6 +221,22 @@ export class BookingformComponent implements OnInit {
       this.inactiveSpinner();
       this.unsuccessfullReservation = true;
     })
+  }
+
+  changeActiveUser($event: any) {
+    this.activeUser = $event;
+  }
+
+  changeShowUserInfo($event: boolean) {
+    this.showUserInfo = $event;
+  }
+
+  changeBookingCard($event: boolean) {
+    this.bookingCard = $event;
+  }
+
+  changeHideElements($event: boolean) {
+    this.hideElements = $event;
   }
 
   restartBooking() {

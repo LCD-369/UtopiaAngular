@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AirportlookupfromComponent } from './airportlookupfrom.component';
+import { UserpageComponent } from './userpage.component';
 
-describe('AirportlookupfromComponent', () => {
-  let component: AirportlookupfromComponent;
-  let fixture: ComponentFixture<AirportlookupfromComponent>;
+describe('UserpageComponent', () => {
+  let component: UserpageComponent;
+  let fixture: ComponentFixture<UserpageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AirportlookupfromComponent ]
+      declarations: [ UserpageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AirportlookupfromComponent);
+    fixture = TestBed.createComponent(UserpageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

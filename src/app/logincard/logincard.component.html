@@ -1,15 +1,25 @@
-<div class="text-center rounded bg-dark m-auto p-2 text-white">
-  <h2>User Login</h2>
-  <fa-icon [icon]="faLock"></fa-icon>
+<h2 [hidden]="!userLoggedIn()" class="text-center rounded bg-dark m-auto p-2 text-white">User already logged in</h2>
+<div [hidden]="userLoggedIn()">
+  <div class="text-center rounded bg-dark m-auto p-2 text-white">
+    <h2>User Login</h2>
+    <fa-icon [icon]="faLock"></fa-icon>
+  </div>
+  <form name="form" (ngSubmit)="loginUser()" class="text-center">
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+    <div class="form-group">
+      <label for="exampleInputEmail1" class="lead">Username</label>
+      <input type="text" class="form-control text-center" [(ngModel)]="form.username" name="username"
+                aria-describedby="user name" placeholder="Enter username" required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword2" class="lead">Password</label>
+      <input type="password" class="form-control text-center" [(ngModel)]="form.password" name="password"
+                 aria-describedby="password" placeholder="Enter password" required>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block">Login</button>
+  </form>
+  <div class="container text-center">
+    <p class="lead">Don't have an account?</p>
+    <a [routerLink]="['/register']" class="btn btn-link" (click)="dismissAll()">Click here to create a new account!</a>
+  </div>
 </div>
-<form [formGroup]="userForm" (ngSubmit)="loginUser()" class="text-center">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="lead">Username</label>
-    <input type="email" class="form-control text-center" formControlName="username" aria-describedby="user name" placeholder="Enter username" required>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1" class="lead">Password</label>
-    <input type="password" class="form-control text-center" formControlName="password" aria-describedby="password" placeholder="Enter password" required>
-  </div>
-  <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="!userForm.valid">Login</button>
-</form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from "../models/User";
 
 @Component({
   selector: 'app-bookingcard',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingcardComponent implements OnInit {
   currentJustify = 'justified';
+  currentUser = new User();
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
 }

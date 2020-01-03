@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -22,5 +22,8 @@ export class LoginmodalComponent implements OnInit {
   ngOnInit() {
   }
 
+  dismissModal($event: any) {
+    this.modalService.dismissAll($event);
+  }
 
 }

@@ -1,0 +1,33 @@
+<div class="container" style="margin-top: -150px; z-index: 9; position: relative">
+  <div class="card card-container">
+    <p id="profile-name" class="profile-name-card"></p>
+
+  <form name="form-signin" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <strong>Error: </strong> {{errorMessage}}
+    </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+        <label for="email">Email</label>
+        <input type="email" class="form-control input-text-custom" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required />
+        <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phone.valid }">
+        <label for="phone">Phone Number</label>
+        <input type="text" class="form-control input-text-custom" id="phone" name="phone" [(ngModel)]="user.phone" #phone="ngModel" required />
+        <div *ngIf="f.submitted && !phone.valid" class="help-block">Phone munber is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="username">Username</label>
+        <input type="text" class="form-control input-text-custom" id="username" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+        <div *ngIf="f.submitted && !username.valid" class="help-block">An valid username is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password">Password</label>
+        <input type="password" class="form-control input-text-custom" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required.</div>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin form-submit-button" type="submit">Sign Up</button>
+    </form><!-- /form -->
+      <a [routerLink]="['/login']" class="btn btn-link">I have Account!</a>
+  </div><!-- /card-container -->
+</div><!-- /container -->

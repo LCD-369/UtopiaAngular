@@ -3,6 +3,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { lightSpeedIn } from 'ng-animate';
 
+
 function isTrue(){
   return true;
 }
@@ -14,10 +15,11 @@ function isTrue(){
   providers: [NgbCarouselConfig],
   animations: [
    trigger('lightSpeedIn', [transition(isTrue, useAnimation(lightSpeedIn))])
- ],
+ ]
 })
 export class CarouselComponent implements OnInit {
   lightSpeedIn: any;
+  something: any;
 
   constructor(config: NgbCarouselConfig) {
    // customize default values of carousels used by this component tree

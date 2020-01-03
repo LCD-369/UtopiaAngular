@@ -5,4 +5,5 @@ export class User {
   displayName: string;
   email: string;
   phone: string;
+  role: Array<any>;
 }

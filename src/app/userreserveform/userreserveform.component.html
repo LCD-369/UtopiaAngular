@@ -1,0 +1,24 @@
+<!-- User Info -->
+
+  <div class="text-center rounded bg-dark m-auto p-2 text-white">
+  <h2>Enter user information before booking</h2>
+  <fa-icon [icon]="faArrowCircleDown"></fa-icon>
+  </div>
+  <form [formGroup]="userForm" class="text-center">
+    <div class="form-group">
+      <label for="username" class="lead">Username</label>
+      <input type="text" class="form-control text-center" formControlName="username"  aria-describedby="enter username" placeholder="Enter username" required>
+    </div>
+    <div class="form-group">
+      <label for="password" class="lead">Password</label>
+      <input type="password" class="form-control text-center" formControlName="password"  aria-describedby="enter password" placeholder="Password" required>
+    </div>
+    <button type="button" class="btn btn-outline-primary btn-block" [disabled]="!userForm.valid" (click)="onSearchUser()">Enter</button>
+  </form>
+  <br />
+  <div *ngIf="findUser">
+      <br />
+    <h5 class="text-center rounded bg-danger text-white p-5">Could not find user. Please try again</h5>
+  </div>
+
+<!-- User Info End -->
